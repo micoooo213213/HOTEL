@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotel Management System</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+        }
+
+        .navbar {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .navbar h1 {
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            opacity: 0.9;
+            transition: opacity 0.3s;
+        }
+
+        .nav-links a:hover {
+            opacity: 1;
+            text-decoration: underline;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .dashboard {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.07);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        .card-icon {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .card h3 {
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+
+        .card .number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        .section {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.07);
+            margin-bottom: 1.5rem;
+        }
+
+        .section h2 {
+            color: #333;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #667eea;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+
+        th, td {
+            text-align: left;
+            padding: 1rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        th {
+            background: #f8f9fa;
+            font-weight: 600;
+            color: #555;
+        }
+
+        tr:hover {
+            background: #f8f9fa;
+        }
+
+        .status {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .status.occupied {
+            background: #fee;
+            color: #c33;
+        }
+
+        .status.available {
+            background: #efe;
+            color: #3c3;
+        }
+
+        .status.maintenance {
+            background: #ffeaa7;
+            color: #d63031;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: opacity 0.3s;
+        }
+
+        .btn:hover {
+            opacity: 0.9;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 2rem;
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .dashboard {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <h1>🏨 Grand Hotel Manager</h1>
+        <div class="nav-links">
+            <a href="#dashboard">Dashboard</a>
+            <a href="#rooms">Rooms</a>
+            <a href="#guests">Guests</a>
+            <a href="#bookings">Bookings</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="dashboard" id="dashboard">
+            <div class="card">
+                <div class="card-icon">🚪</div>
+                <h3>Total Rooms</h3>
+                <div class="number">120</div>
+            </div>
+            <div class="card">
+                <div class="card-icon">✅</div>
+                <h3>Available</h3>
+                <div class="number">45</div>
+            </div>
+            <div class="card">
+                <div class="card-icon">👥</div>
+                <h3>Checked In</h3>
+                <div class="number">68</div>
+            </div>
+            <div class="card">
+                <div class="card-icon">🔧</div>
+                <h3>Maintenance</h3>
+                <div class="number">7</div>
+            </div>
+        </div>
+
+        <div class="section" id="rooms">
+            <h2>🏨 Room Status</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Room</th>
+                        <th>Type</th>
+                        <th>Status</th>
+                        <th>Guest</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>101</td>
+                        <td>Deluxe King</td>
+                        <td><span class="status occupied">Occupied</span></td>
+                        <td>John Smith</td>
+                        <td><button class="btn">View</button></td>
+                    </tr>
+                    <tr>
+                        <td>102</td>
+                        <td>Standard Twin</td>
+                        <td><span class="status available">Available</span></td>
+                        <td>-</td>
+                        <td><button class="btn">Book</button></td>
+                    </tr>
+                    <tr>
+                        <td>103</td>
+                        <td>Suite</td>
+                        <td><span class="status maintenance">Maintenance</span></td>
+                        <td>-</td>
+                        <td><button class="btn">Details</button></td>
+                    </tr>
+                    <tr>
+                        <td>104</td>
+                        <td>Deluxe King</td>
+                        <td><span class="status occupied">Occupied</span></td>
+                        <td>Sarah Johnson</td>
+                        <td><button class="btn">View</button></td>
+                    </tr>
+                    <tr>
+                        <td>105</td>
+                        <td>Standard Queen</td>
+                        <td><span class="status available">Available</span></td>
+                        <td>-</td>
+                        <td><button class="btn">Book</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="section" id="guests">
+            <h2>📝 Recent Check-ins</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Guest Name</th>
+                        <th>Room</th>
+                        <th>Check-in</th>
+                        <th>Check-out</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Michael Brown</td>
+                        <td>205</td>
+                        <td>Apr 5, 2026</td>
+                        <td>Apr 8, 2026</td>
+                        <td><span class="status occupied">Active</span></td>
+                    </tr>
+                    <tr>
+                        <td>Emily Davis</td>
+                        <td>310</td>
+                        <td>Apr 4, 2026</td>
+                        <td>Apr 6, 2026</td>
+                        <td><span class="status occupied">Active</span></td>
+                    </tr>
+                    <tr>
+                        <td>Robert Wilson</td>
+                        <td>156</td>
+                        <td>Apr 3, 2026</td>
+                        <td>Apr 5, 2026</td>
+                        <td><span class="status available">Checked Out</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>🏨 Hotel Management System v1.0 | Running on localhost:3000</p>
+        <p style="margin-top: 0.5rem; font-size: 0.8rem; color: #999;">
+            Served from: C:\Users\Michael\Documents\hotel
+        </p>
+    </footer>
+
+    <script>
+        // Simulate real-time updates
+        setInterval(() => {
+            const numbers = document.querySelectorAll('.number');
+            // Randomly fluctuate numbers slightly to simulate live data
+            numbers.forEach(num => {
+                if (Math.random() > 0.7) {
+                    const base = parseInt(num.textContent);
+                    const variation = Math.floor(Math.random() * 3) - 1;
+                    num.style.opacity = '0.5';
+                    setTimeout(() => {
+                        num.textContent = Math.max(0, base + variation);
+                        num.style.opacity = '1';
+                    }, 200);
+                }
+            });
+        }, 5000);
+
+        console.log('🏨 Hotel Management System loaded successfully');
+        console.log('Server path: C:\\Users\\Michael\\Documents\\hotel');
+    </script>
+</body>
+</html>
